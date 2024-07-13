@@ -11,6 +11,7 @@
   "description": "",
   "dependencies": {
     "express": "^4.19.2",
-    "mongoose": "^8.5.1"
+    "mongoose": "^8.5.1",
+    "short-unique-id": "^5.2.0"
   }
 }
