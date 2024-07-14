@@ -32,6 +32,7 @@ app.get("/:shortId", async (req, res) => {
                 $push: {
                     visitHistory: {
                         timestamp: Date.now(),
+                        ip_address:req.ip
                     },
                 },
             },
