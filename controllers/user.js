@@ -1,6 +1,5 @@
 const user_model = require('../models/user');
 const ShortUniqueId = require("short-unique-id");
-const {randomUUID: randomID} = new ShortUniqueId({length: 10});
 const {setUser,getUser} = require("../service/auth")
 
 async function handleUserSignUp(req, res) {
@@ -21,9 +20,8 @@ async function handUserLogin(req, res) {
             error: "Invalid Username/Password"
         });
     }
-    const sessionId = randomID();
-    setUser(sessionId,user);
-    res.cookie("access-token", sessionId);
+    const token = setUser(user);
+    res.cookie("access-token", token);
     return res.redirect("/")
 }
 
