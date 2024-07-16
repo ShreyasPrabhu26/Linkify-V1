@@ -15,11 +15,10 @@ async function handleGenerateNewShortURL(req, res) {
     await url_model.create({
         shortId,
         redirectURL,
+        createdBy:req.user._id
     })
 
-    return res.render("home", {
-        id: shortId
-    })
+    return res.redirect("/")
 }
 
 async function handleGetAnalytics(req, res) {

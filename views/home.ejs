@@ -4,120 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>URL Shortener</title>
-    <link rel="stylesheet" href="styles.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Arial, sans-serif';
-            background: linear-gradient(to right, #8360c3, #2ebf91);
-            color: #fff;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            min-height: 100vh;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            text-align: center;
-        }
-
-        header {
-            background: rgba(0, 0, 0, 0.7);
-            padding: 20px 0;
-        }
-
-        header h1 {
-            font-size: 2.5rem;
-            font-weight: bold;
-        }
-
-        main {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-grow: 1;
-        }
-
-        .shorten-url-form {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            max-width: 600px;
-            width: 100%;
-        }
-
-        .shorten-url-form h2 {
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-        }
-
-        .shorten-url-form form {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .shorten-url-form input {
-            padding: 10px;
-            width: 80%;
-            max-width: 500px;
-            border: none;
-            border-radius: 5px;
-            outline: none;
-            margin-bottom: 20px;
-        }
-
-        .shorten-url-form button {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            background: #2ebf91;
-            color: #fff;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        .shorten-url-form button:hover {
-            background: #1e8f63;
-        }
-
-        footer {
-            background: rgba(0, 0, 0, 0.7);
-            padding: 10px 0;
-        }
-
-        footer p {
-            font-size: 1rem;
-        }
-
-        table {
-            width: 100%;
-            margin-top: 20px;
-            border-collapse: collapse;
-        }
-
-        th, td {
-            padding: 10px;
-            border: 1px solid #fff;
-        }
-
-        th {
-            background-color: rgba(0, 0, 0, 0.7);
-        }
-
-        td a {
-            color: #2ebf91;
-        }
-    </style>
+<link rel="stylesheet" href="/homepage.css">
 </head>
 <body>
 <header>
@@ -128,10 +15,6 @@
 <main>
     <div class="container">
         <div class="shorten-url-form">
-            <% if (locals.id) { %>
-                <p>URL Generated:</p>
-                <p>http://localhost:8000/url/<%= id %></p>
-            <% } %>
             <h2>Enter your original URL</h2>
             <form method="post" action="/url">
                 <input type="text" name="redirectURL" placeholder="Enter your long URL here..." required>
@@ -154,7 +37,7 @@
                         <tr>
                             <td><%= index + 1 %></td>
                             <td><%= url.shortId %></td>
-                            <td><a href="<%= url.shortId %>" target="_blank"><%= url.redirectURL %></a></td>
+                            <td><a href="http://localhost:8000/url/<%= url.shortId %>" target="_blank"><%= url.redirectURL %></a></td>
                             <td><%= url.visitHistory.length %></td>
                         </tr>
                     <% }) %>
