@@ -18,7 +18,16 @@ async function authLoggedInUser(req, res, next) {
     next();
 }
 
+function restrictTo(roles=[]){
+    return function (req,res,next){
+        if(!req.user) return res.redirect("/login");
+        if(!roles.includes(req.user.role)) return res.end("UN-AUTHORIZED");
+        next();
+    }
+}
+
 module.exports = {
     authLoggedInUser,
-    checkAuth
+    checkAuth,
+    restrictTo
 }

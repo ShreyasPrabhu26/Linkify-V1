@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
-const {authLoggedInUser,checkAuth} = require('./middlewares/auth');
+const {authLoggedInUser,checkAuth, restrictTo} = require('./middlewares/auth');
 const app = express()
 
 // Get data from environment variables
@@ -20,10 +20,11 @@ app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 app.use(cookieParser())
+app.use(checkAuth)
 
-app.use("/",checkAuth,staticRouter)
+app.use("/",staticRouter)
 app.use("/user",userRouter)
-app.use("/url", authLoggedInUser,urlRouter)
+app.use("/url",restrictTo(["ADMIN","NORMAL"]),urlRouter)
 
 connectToMongoDb(CONNECTION_URL)
 
