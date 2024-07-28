@@ -15,6 +15,7 @@
     "express": "^4.19.2",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.5.1",
+    "serve-favicon": "^2.5.0",
     "short-unique-id": "^5.2.0",
     "useragent": "^2.3.0"
   }
