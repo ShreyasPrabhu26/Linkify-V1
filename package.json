@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --env-file=.env index.js\n"
+    "start": "node --env-file=.env index.js\n"
   },
   "keywords": [],
   "author": "",
