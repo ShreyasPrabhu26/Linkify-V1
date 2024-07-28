@@ -4,7 +4,10 @@
 
 ## **API Documentation:**
 
-API documentation is provided by Swagger.After starting the server, navigate to [http://localhost:8000/api-docs](http://localhost:8000/api-docs) to view the Swagger UI.
+- API documentation is provided by Swagger.After starting the server, navigate to [http://localhost:8000/api-docs](http://localhost:8000/api-docs) to view the Swagger UI.
+- Post-Man Documentation [https://documenter.getpostman.com/view/34566063/2sA3kaByuE](https://documenter.getpostman.com/view/34566063/2sA3kaByuE)
+
+[<img src="https://run.pstmn.io/button.svg" alt="Run In Postman" style="width: 128px; height: 32px;">](https://god.gw.postman.com/run-collection/34566063-44642545-caeb-4596-99a4-397558373d97?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D34566063-44642545-caeb-4596-99a4-397558373d97%26entityType%3Dcollection%26workspaceId%3D24aafa16-5bcb-4098-b8ef-93d99e462a59)
 
 ## Project Overview
 
