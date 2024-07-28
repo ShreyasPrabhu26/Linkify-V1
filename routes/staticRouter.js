@@ -17,12 +17,15 @@ router.get('/admin/urls', restrictTo(["ADMIN"]), async (req, res) => {
 
 
 router.get('/', async (req, res) => {
-    const allUrlInformation = undefined;
-    if (req.user) {
-        const allUrlInformation = await url_model.find({ createdBy: req.user._id });
-    }
+    let allUrlInformation = undefined;
     const token = req.cookies['access-token'];
     const user = getUser(token);
+    req.user = user;
+
+    if (req.user) {
+        allUrlInformation = await url_model.find({ createdBy: req.user._id });
+    }
+
     res.render('home', { user, allUrlInformation });
 });
 
@@ -33,6 +36,14 @@ router.get("/signup", async (req, res) => {
 router.get("/login", async (req, res) => {
     return res.render("login")
 })
+
+
+router.get("/logout", async (req, res) => {
+    res.clearCookie("access-token");
+    return res.redirect('/');
+})
+
+
 
 router.get("/:shortId", async (req, res) => {
     try {
