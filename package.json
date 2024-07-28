@@ -17,6 +17,8 @@
     "mongoose": "^8.5.1",
     "serve-favicon": "^2.5.0",
     "short-unique-id": "^5.2.0",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
     "useragent": "^2.3.0"
   }
 }

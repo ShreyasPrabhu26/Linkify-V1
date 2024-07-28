@@ -1,0 +1,153 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "URL Shortener API",
+    "description": "API documentation for URL shortener service"
+  },
+  "host": "localhost:8000",
+  "basePath": "/api",
+  "schemes": ["http"],
+  "paths": {
+    "/user/signup": {
+      "post": {
+        "tags": ["User"],
+        "summary": "Sign up a new user",
+        "description": "Create a new user account",
+        "consumes": ["application/x-www-form-urlencoded"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "formData",
+            "description": "User's email address",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "password",
+            "in": "formData",
+            "description": "User's password",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User successfully signed up"
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/user/login": {
+      "post": {
+        "tags": ["User"],
+        "summary": "Log in a user",
+        "description": "Authenticate user and return token",
+        "consumes": ["application/x-www-form-urlencoded"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "formData",
+            "description": "User's email address",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "password",
+            "in": "formData",
+            "description": "User's password",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User successfully logged in"
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/url/shorten": {
+      "post": {
+        "tags": ["URL"],
+        "summary": "Shorten a URL",
+        "description": "Create a shortened URL",
+        "consumes": ["application/x-www-form-urlencoded"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "redirectURL",
+            "in": "formData",
+            "description": "URL to be shortened",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "URL successfully shortened"
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        }
+      }
+    },
+    "/{shortURL}": {
+      "get": {
+        "tags": ["URL"],
+        "summary": "Redirect to original URL",
+        "description": "Redirect to the original URL based on the shortened URL",
+        "parameters": [
+          {
+            "name": "shortURL",
+            "in": "path",
+            "description": "Shortened URL code",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "302": {
+            "description": "Redirect to original URL"
+          },
+          "404": {
+            "description": "Short URL not found"
+          }
+        }
+      }
+    },
+    "/url/analytics/{shortURL}": {
+      "get": {
+        "tags": ["URL"],
+        "summary": "Get URL analytics",
+        "description": "Retrieve analytics for a shortened URL",
+        "parameters": [
+          {
+            "name": "shortURL",
+            "in": "path",
+            "description": "Shortened URL code",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Analytics data retrieved"
+          },
+          "404": {
+            "description": "Short URL not found"
+          }
+        }
+      }
+    }
+  }
+}

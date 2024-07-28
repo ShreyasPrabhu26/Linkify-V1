@@ -4,6 +4,8 @@ const cookieParser = require('cookie-parser');
 const { authLoggedInUser, checkAuth, restrictTo } = require('./middlewares/auth');
 const app = express();
 const favicon = require('serve-favicon');
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
 
 // Get data from environment variables
 const PORT = process.env.PORT || 8080;
@@ -27,10 +29,12 @@ app.use(favicon(path.join(__dirname, 'public/images/logo', 'favicon.png')));
 
 
 // Define your routes
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use("/", staticRouter);
 app.use("/user", userRouter);
 app.use("/url", restrictTo(["ADMIN", "NORMAL"]), urlRouter);
 app.use("/api", apiRouter);
+
 
 connectToMongoDb(CONNECTION_URL);
 
