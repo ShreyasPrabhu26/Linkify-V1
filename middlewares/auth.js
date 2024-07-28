@@ -1,4 +1,4 @@
-const {getUser} = require('../service/auth');
+const { getUser } = require('../service/auth');
 
 async function checkAuth(req, res, next) {
     const userAccessToken = req.cookies["access-token"];
@@ -18,10 +18,10 @@ async function authLoggedInUser(req, res, next) {
     next();
 }
 
-function restrictTo(roles=[]){
-    return function (req,res,next){
-        if(!req.user) return res.redirect("/login");
-        if(!roles.includes(req.user.role)) return res.end("UN-AUTHORIZED");
+function restrictTo(roles = []) {
+    return function (req, res, next) {
+        if (!req.user) return res.redirect("/login");
+        if (!roles.includes(req.user.role)) return res.end("UN-AUTHORIZED");
         next();
     }
 }
