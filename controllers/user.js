@@ -5,10 +5,13 @@ const { setUser, getUser } = require("../service/auth");
 async function handleUserSignUp(req, res) {
     const { email, password } = req.body;
     try {
-        await user_model.create({
+        const user = await user_model.create({
             email,
             password
         });
+        
+        const token = setUser(user);
+        res.cookie("access-token", token);
 
         if (req.originalUrl.startsWith('/api')) {
             return res.json({ message: "User signed up successfully" });

@@ -2,7 +2,10 @@ const express = require('express');
 const { url_model } = require("../models/url");
 const { restrictTo } = require("../middlewares/auth");
 const router = express.Router();
+const useragent = require('useragent');
 const { getUser } = require('../service/auth');
+const { getIpInfo } = require('../service/getIpInfo');
+const { getCurrentDateInfo } = require('../service/getCurrentDateInfo');
 
 
 router.get('/admin/urls', restrictTo(["ADMIN"]), async (req, res) => {
@@ -12,19 +15,15 @@ router.get('/admin/urls', restrictTo(["ADMIN"]), async (req, res) => {
     });
 })
 
-// router.get('/', restrictTo(["ADMIN", "NORMAL"]), async (req, res) => {
-//     const allUrls = await url_model.find({ createdBy: req.user._id });
-//     return res.render('home', {
-//         urls: allUrls
-//     });
-// })
 
 router.get('/', async (req, res) => {
-    // const allUrls = await url_model.find({ createdBy: req.user._id });
+    const allUrlInformation = undefined;
+    if (req.user) {
+        const allUrlInformation = await url_model.find({ createdBy: req.user._id });
+    }
     const token = req.cookies['access-token'];
     const user = getUser(token);
-    // const num = Math.floor(Math.random() * 10) + 1;
-    res.render('home', { user });
+    res.render('home', { user, allUrlInformation });
 });
 
 router.get("/signup", async (req, res) => {
@@ -43,16 +42,41 @@ router.get("/:shortId", async (req, res) => {
         if (shortId.length !== 10) {
             return res.status(400).json({ "Error": "Invalid Short URL" });
         }
+
+        const currentTimeInfo = getCurrentDateInfo()
+
+        // Parse the user-agent header
+        const ua = useragent.parse(req.headers['user-agent']);
+
+        const ipInformationJson = await getIpInfo(req.ip)
+        let county, region, regionName, city, zip, lat, lon, isp, org;
+
+        if (ipInformationJson.status != "fail") {
+            ({ county, region, regionName, city, zip, lat, lon, isp, org } = ipInformationJson);
+        }
+
         const entry = await url_model.findOneAndUpdate(
             { shortId },
             {
                 $push: {
                     visitHistory: {
-                        timestamp: Date.now(),
-                        ip_address: req.ip
-                    },
-                },
-            },
+                        timestamp: currentTimeInfo,
+                        ip_address: req.ip,
+                        county: county || "Not Found",
+                        region: region || "Not Found",
+                        regionName: regionName || "Not Found",
+                        city: city || "Not Found",
+                        zip: zip || "Not Found",
+                        lat: lat || "Not Found",
+                        lon: lon || "Not Found",
+                        isp: isp || "Not Found",
+                        org: org || "Not Found",
+                        device: ua.device || 'Unknown',
+                        os: ua.os || 'Unknown',
+                        browser: ua.browser || 'Unknown'
+                    }
+                }
+            }
         );
 
         if (!entry) {
@@ -69,6 +93,6 @@ router.get("/:shortId", async (req, res) => {
         console.error(`Error:${error}`);
         return res.status(500).send('Internal Server Error');
     }
-})
+});
 
 module.exports = router;

@@ -30,15 +30,35 @@ async function handleGenerateNewShortURL(req, res) {
 async function handleGetAnalytics(req, res) {
     const shortId = req.params.shortId;
     const result = await url_model.findOne({ shortId });
+
+    if (!result) {
+        return res.status(404).json({ error: 'Short URL not found' });
+    }
+
     const response = {
         totalClicks: result.visitHistory.length,
-        analytics: result.visitHistory
+        analytics: result.visitHistory.map(entry => ({
+            timestamp: entry.timestamp,
+            ip_address: entry.ip_address,
+            device: entry.device,
+            os: entry.os,
+            browser: entry.browser,
+            county: entry.county,
+            region: entry.region,
+            regionName: entry.regionName,
+            city: entry.city,
+            lat: entry.lat,
+            lon: entry.lon,
+            isp: entry.isp,
+            org: entry.org
+        }))
     };
 
     if (req.originalUrl.startsWith('/api')) {
         return res.json(response);
     }
 }
+
 
 module.exports = {
     handleGenerateNewShortURL,

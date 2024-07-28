@@ -12,7 +12,7 @@ const connectToMongoDb = require('./mongo_db_connection');
 const urlRouter = require("./routes/url");
 const staticRouter = require("./routes/staticRouter");
 const userRouter = require("./routes/user");
-const apiRouter = require("./routes/apiRoutes"); // Import the new API routes
+const apiRouter = require("./routes/apiRoutes"); 
 
 // Middleware configuration
 app.set("view engine", "ejs");
