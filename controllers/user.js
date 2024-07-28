@@ -1,15 +1,18 @@
 const user_model = require('../models/user');
-const ShortUniqueId = require("short-unique-id");
+const bcrypt = require('bcrypt');
 const { setUser, getUser } = require("../service/auth");
 
 async function handleUserSignUp(req, res) {
     const { email, password } = req.body;
     try {
+        const saltRounds = 10;
+        const hashedPassword = await bcrypt.hash(password, saltRounds);
+
         const user = await user_model.create({
             email,
-            password
+            password: hashedPassword
         });
-        
+
         const token = setUser(user);
         res.cookie("access-token", token);
 
@@ -30,7 +33,7 @@ async function handleUserSignUp(req, res) {
 
 async function handUserLogin(req, res) {
     const { email, password } = req.body;
-    const user = await user_model.findOne({ email, password });
+    const user = await user_model.findOne({ email });
     if (!user) {
         if (req.originalUrl.startsWith('/api')) {
             return res.status(400).json({ error: "Invalid Username/Password" });
@@ -39,6 +42,17 @@ async function handUserLogin(req, res) {
             error: "Invalid Username/Password"
         });
     }
+
+    const match = await bcrypt.compare(password, user.password);
+    if (!match) {
+        if (req.originalUrl.startsWith('/api')) {
+            return res.status(400).json({ error: "Invalid Username/Password" });
+        }
+        return res.render("login", {
+            error: "Invalid Username/Password"
+        });
+    }
+
     const token = setUser(user);
     res.cookie("access-token", token);
 
