@@ -3,6 +3,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const { authLoggedInUser, checkAuth, restrictTo } = require('./middlewares/auth');
 const app = express();
+const favicon = require('serve-favicon');
 
 // Get data from environment variables
 const PORT = process.env.PORT || 8080;
@@ -12,7 +13,7 @@ const connectToMongoDb = require('./mongo_db_connection');
 const urlRouter = require("./routes/url");
 const staticRouter = require("./routes/staticRouter");
 const userRouter = require("./routes/user");
-const apiRouter = require("./routes/apiRoutes"); 
+const apiRouter = require("./routes/apiRoutes");
 
 // Middleware configuration
 app.set("view engine", "ejs");
@@ -22,6 +23,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(checkAuth);
+app.use(favicon(path.join(__dirname, 'public/images/logo', 'favicon.png')));
+
 
 // Define your routes
 app.use("/", staticRouter);
