@@ -30,3 +30,4 @@ jobs:
           touch .env
           echo "${{secrets.PROD_ENV_FILE}}" > .env
     - run: pm2 restart Linkify
+    - run: sudo systemctl reload caddy
