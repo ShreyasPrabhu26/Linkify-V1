@@ -7,7 +7,7 @@
   },
   "host": "linkify-app.shreyas.info",
   "basePath": "/api",
-  "schemes": ["http"],
+  "schemes": ["https"],
   "paths": {
     "/user/signup": {
       "post": {
