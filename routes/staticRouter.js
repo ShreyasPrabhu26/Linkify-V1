@@ -44,7 +44,6 @@ router.get("/logout", async (req, res) => {
 })
 
 
-
 router.get("/:shortId", async (req, res) => {
     try {
         const { shortId } = req.params;
@@ -54,12 +53,16 @@ router.get("/:shortId", async (req, res) => {
             return res.status(400).json({ "Error": "Invalid Short URL" });
         }
 
-        const currentTimeInfo = getCurrentDateInfo()
+        const currentTimeInfo = getCurrentDateInfo();
+
+        // Get the client IP address
+        const clientIp = req.clientIp;
 
         // Parse the user-agent header
-        const ua = useragent.parse(req.headers['user-agent']);
+        const ua = req.useragent;
 
-        const ipInformationJson = await getIpInfo(req.ip)
+        const ipInformationJson = await getIpInfo(clientIp);
+
         let county, region, regionName, city, zip, lat, lon, isp, org;
 
         if (ipInformationJson.status != "fail") {
@@ -72,7 +75,7 @@ router.get("/:shortId", async (req, res) => {
                 $push: {
                     visitHistory: {
                         timestamp: currentTimeInfo,
-                        ip_address: req.ip,
+                        ip_address: clientIp,
                         county: county || "Not Found",
                         region: region || "Not Found",
                         regionName: regionName || "Not Found",
@@ -101,7 +104,7 @@ router.get("/:shortId", async (req, res) => {
         return res.redirect(302, redirectURL);
 
     } catch (error) {
-        console.error(`Error:${error}`);
+        console.error(`Error: ${error}`);
         return res.status(500).send('Internal Server Error');
     }
 });
