@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const compression = require('compression')
@@ -23,6 +24,7 @@ const userRouter = require("./routes/user");
 const apiRouter = require("./routes/apiRoutes");
 
 // Middleware configuration
+app.use(cors());
 app.use(requestIp.mw());
 app.use(useragent.express());
 app.set("view engine", "ejs");
