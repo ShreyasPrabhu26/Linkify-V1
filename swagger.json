@@ -5,7 +5,7 @@
     "title": "URL Shortener API",
     "description": "API documentation for URL shortener service"
   },
-  "host": "https://linkify-app.shreyas.info",
+  "host": "linkify-app.shreyas.info",
   "basePath": "/api",
   "schemes": ["http"],
   "paths": {
