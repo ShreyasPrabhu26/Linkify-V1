@@ -48,11 +48,6 @@ router.get("/:shortId", async (req, res) => {
     try {
         let { shortId } = req.params;
 
-        // Remove `/api` from the beginning of shortId if present
-        if (shortId.startsWith('api/')) {
-            shortId = shortId.substring(4); // Removes the first 4 characters (i.e., `api/`)
-        }
-
         // Validate shortId length
         if (shortId.length !== 10) {
             return res.status(400).json({ "Error": "Invalid Short URL" });
