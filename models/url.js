@@ -17,7 +17,7 @@ const urlSchema = new mongoose.Schema({
         device: String,
         os: String,
         browser: String,
-        county: String,
+        country: String,
         region: String,
         regionName: String,
         city: String,

@@ -63,10 +63,10 @@ router.get("/:shortId", async (req, res) => {
 
         const ipInformationJson = await getIpInfo(clientIp);
 
-        let county, region, regionName, city, zip, lat, lon, isp, org;
+        let country, region, regionName, city, zip, lat, lon, isp, org;
 
         if (ipInformationJson.status != "fail") {
-            ({ county, region, regionName, city, zip, lat, lon, isp, org } = ipInformationJson);
+            ({ country, region, regionName, city, zip, lat, lon, isp, org } = ipInformationJson);
         }
 
         const entry = await url_model.findOneAndUpdate(
@@ -76,7 +76,7 @@ router.get("/:shortId", async (req, res) => {
                     visitHistory: {
                         timestamp: currentTimeInfo,
                         ip_address: clientIp,
-                        county: county || "Not Found",
+                        country: country || "Not Found",
                         region: region || "Not Found",
                         regionName: regionName || "Not Found",
                         city: city || "Not Found",
