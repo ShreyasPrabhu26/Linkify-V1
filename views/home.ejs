@@ -6,6 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Linkify - Home</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* This is to overide the postman original styles */
+        .postman-run-button {
+            height: 39px !important;
+            width: 155px !important;
+            background-size: cover !important;
+        }
+    </style>
 </head>
 
 <body class="bg-blue-100 text-gray-900">
@@ -68,8 +76,14 @@
                 <div class="flex justify-center space-x-4">
                     <button class="whitespace-nowrap bg-blue-600 text-white py-2 px-6 rounded"
                         onclick="location.href='/signup'">Get started for free</button>
-                    <button class="whitespace-nowrap bg-gray-200 text-gray-900 py-2 px-6 rounded">API-DOCS</button>
-
+                    <a href="https://linkify-app.shreyas.info/api-docs" target="_blank">
+                        <button class="whitespace-nowrap bg-gray-200 text-gray-900 py-2 px-6 rounded">API-DOCS</button>
+                    </a>
+                    <div class="postman-run-button" data-postman-action="collection/fork"
+                        data-postman-visibility="public"
+                        data-postman-var-1="34566063-44642545-caeb-4596-99a4-397558373d97"
+                        data-postman-collection-url="entityId=34566063-44642545-caeb-4596-99a4-397558373d97&entityType=collection&workspaceId=24aafa16-5bcb-4098-b8ef-93d99e462a59">
+                    </div>
                 </div>
             </section>
             <% } %>
@@ -237,6 +251,15 @@
                 menu.classList.toggle('hidden');
             });
         });
+    </script>
+    <script type="text/javascript">
+        (function (p, o, s, t, m, a, n) {
+            !p[s] && (p[s] = function () { (p[t] || (p[t] = [])).push(arguments); });
+            !o.getElementById(s + t) && o.getElementsByTagName("head")[0].appendChild((
+                (n = o.createElement("script")),
+                (n.id = s + t), (n.async = 1), (n.src = m), n
+            ));
+        }(window, document, "_pm", "PostmanRunObject", "https://run.pstmn.io/button.js"));
     </script>
 </body>
 
