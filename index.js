@@ -32,7 +32,6 @@ app.use(compression());
 app.use(checkAuth);
 app.use(favicon(path.join(__dirname, 'public/images/logo', 'favicon.png')));
 
-// Define your routes
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use("/", staticRouter);
 app.use("/user", userRouter);
