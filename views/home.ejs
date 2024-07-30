@@ -120,6 +120,14 @@
                                             <%= urlInfo.redirectURL %>
                                         </a>
                                     </div>
+                                    <div class="bg-blue-100 p-3 rounded">
+                                        <strong>Total Click:</strong>
+                                        <a class="text-blue-600 hover:underline">
+                                            <span class="text-xl">
+                                                <%= urlInfo.visitHistory.length %>
+                                            </span>
+                                        </a>
+                                    </div>
                                 </div>
 
                                 <% urlInfo.visitHistory.forEach(visit=> { %>
