@@ -46,7 +46,12 @@ router.get("/logout", async (req, res) => {
 
 router.get("/:shortId", async (req, res) => {
     try {
-        const { shortId } = req.params;
+        let { shortId } = req.params;
+
+        // Remove `/api` from the beginning of shortId if present
+        if (shortId.startsWith('/api')) {
+            shortId = shortId.substring(4); // Removes the first 4 characters (i.e., `/api`)
+        }
 
         // Validate shortId length
         if (shortId.length !== 10) {
@@ -108,5 +113,6 @@ router.get("/:shortId", async (req, res) => {
         return res.status(500).send('Internal Server Error');
     }
 });
+
 
 module.exports = router;
