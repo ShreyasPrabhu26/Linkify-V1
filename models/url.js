@@ -27,6 +27,7 @@ const urlSchema = new mongoose.Schema({
         org: String,
         device: String,
         os: String,
+        zip: Number
     }],
 
     createdBy: {
